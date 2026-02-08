@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Wi-Fi QR Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+  <div class="app">
+    <h1>📶 Wi-Fi QR Generator</h1>
+    <p class="subtitle">Generate instant Wi-Fi connection QR codes</p>
+
+    <label>Wi-Fi Name (SSID)</label>
+    <input id="ssid" placeholder="Enter Wi-Fi name">
+
+    <label>Password</label>
+    <div class="password-box">
+      <input id="password" type="password" placeholder="Enter password">
+      <button onclick="togglePassword()">👁</button>
+    </div>
+
+    <label>Security Type</label>
+    <select id="security">
+      <option value="WPA">WPA / WPA2</option>
+      <option value="WEP">WEP</option>
+      <option value="nopass">No Password</option>
+    </select>
+
+    <button class="main-btn" onclick="generateQR()">Generate QR Code</button>
+
+    <div id="qrcode"></div>
+
+    <div class="actions">
+      <button onclick="downloadQR()">⬇ Download</button>
+      <button onclick="copyDetails()">📋 Copy Info</button>
+      <button onclick="resetAll()">🔄 Reset</button>
+    </div>
+
+    <footer>
+      <p>Scan QR with mobile camera to connect</p>
+      <small>100% legal · Offline supported</small>
+    </footer>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
