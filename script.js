@@ -53,3 +53,4 @@ function resetAll() {
   document.getElementById("password").value = "";
   document.getElementById("qrcode").innerHTML = "";
 }
+
