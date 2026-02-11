@@ -110,3 +110,30 @@ footer {
   color: #94a3b8;
 }
 
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.section {
+  width: 80%;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+a:hover {
+  color: blue;
+  transition: 0.3s;
+}
+
+
