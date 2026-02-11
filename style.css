@@ -122,9 +122,8 @@ body.privacy-page {
   margin: 0;
   padding: 40px;
   font-family: Arial, sans-serif;
-  background-color: #f4f6f9;
-  color: #111827;
-  line-height: 1.6;
+  background: linear-gradient(135deg, #1e3a8a, #0f172a);
+  color: white;
 }
 
 body.privacy-page h1 {
@@ -134,7 +133,7 @@ body.privacy-page h1 {
 
 body.privacy-page h2 {
   margin-top: 30px;
-  color: #0f172a;
+  color: #93c5fd;
 }
 
 body.privacy-page ul {
@@ -142,6 +141,5 @@ body.privacy-page ul {
 }
 
 body.privacy-page p {
-  margin-top: 10px;
+  line-height: 1.6;
 }
-
