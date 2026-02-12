@@ -4,75 +4,314 @@
   <meta charset="UTF-8">
   <title>Advanced Wi-Fi QR Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css?v=123">
+  
+  <!-- CSS -->
+  <style>
+    /* === Global Styles === */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .app {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 8px rgba(0,123,255,0.3);
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .strength {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .main-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #007BFF;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .main-btn:hover {
+      background: #0056b3;
+    }
+
+    #qrcode {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      transition: transform 0.3s;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .actions button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      color: #fff;
+    }
+
+    .actions button:nth-child(1) { background: #28A745; }
+    .actions button:nth-child(1):hover { background: #1e7e34; }
+    .actions button:nth-child(2) { background: #FFC107; color: #333; }
+    .actions button:nth-child(2):hover { background: #e0a800; color: #fff; }
+    .actions button:nth-child(3) { background: #DC3545; }
+    .actions button:nth-child(3):hover { background: #a71d2a; }
+
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    footer nav a {
+      color: #007BFF;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer nav a:hover {
+      text-decoration: underline;
+    }
+
+    footer .note {
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    footer small {
+      color: #999;
+    }
+
+    @media (max-width: 480px) {
+      .actions button {
+        flex: 100%;
+      }
+    }
+  </style>
+
+  <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <link rel="icon" type="image/png" href="favicon.png">
-
 </head>
 
-<body class="home-page">
+<body>
 
+  <main>
+    <div class="app">
+      <h1>📶 Wi-Fi QR Generator</h1>
+      <p class="subtitle">Generate instant Wi-Fi connection QR codes</p>
 
-  <div class="app">
-    <h1>📶 Wi-Fi QR Generator</h1>
-    <p class="subtitle">Generate instant Wi-Fi connection QR codes</p>
+      <label for="ssid">Wi-Fi Name (SSID)</label>
+      <input id="ssid" placeholder="Enter Wi-Fi name">
 
-    <label>Wi-Fi Name (SSID)</label>
-    <input id="ssid" placeholder="Enter Wi-Fi name">
+      <label for="password">Password</label>
+      <div class="password-box">
+        <input id="password" type="password" placeholder="Enter password">
+        <button type="button" onclick="togglePassword()">👁</button>
+      </div>
+      <div class="strength" id="strength">Password Strength: N/A</div>
 
-    <label>Password</label>
-    <div class="password-box">
-      <input id="password" type="password" placeholder="Enter password">
-      <button onclick="togglePassword()">👁</button>
+      <label for="security">Security Type</label>
+      <select id="security">
+        <option value="WPA">WPA / WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">No Password</option>
+      </select>
+
+      <button class="main-btn" onclick="generateQR()">Generate QR Code</button>
+
+      <div id="qrcode"></div>
+
+      <div class="actions">
+        <button onclick="downloadQR()">⬇ Download</button>
+        <button onclick="copyDetails()">📋 Copy Info</button>
+        <button onclick="resetAll()">🔄 Reset</button>
+      </div>
     </div>
-
-    <label>Security Type</label>
-    <select id="security">
-      <option value="WPA">WPA / WPA2</option>
-      <option value="WEP">WEP</option>
-      <option value="nopass">No Password</option>
-    </select>
-
-    <button class="main-btn" onclick="generateQR()">Generate QR Code</button>
-
-    <div id="qrcode"></div>
-
-    <div class="actions">
-      <button onclick="downloadQR()">⬇ Download</button>
-      <button onclick="copyDetails()">📋 Copy Info</button>
-      <button onclick="resetAll()">🔄 Reset</button>
-    </div>
-</section>
-
-    <footer class="footer">
-      <p class="note">
-        Scan the QR code using your phone camera to connect instantly.
-      </p>
-
-    <nav>
-  <a href="index.html">Home</a> |
-  <a href="about.html">About Us</a> |
-  <a href="contact.html">Contact Us</a> |
-  <a href="privacy.html">Privacy Policy</a>
-</nav>
-
-
-      <small>
-        © 2026 Wi-Fi QR Generator · No data is collected or stored
-      </small>
-    </footer>
-
   </main>
 
-  <script src="script.js"></script>
+  <footer>
+    <p class="note">Scan the QR code using your phone camera to connect instantly.</p>
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="about.html">About Us</a> |
+      <a href="contact.html">Contact Us</a> |
+      <a href="privacy.html">Privacy Policy</a>
+    </nav>
+    <small>© 2026 Wi-Fi QR Generator · No data is collected or stored</small>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    let qrCode = null;
+
+    const ssidInput = document.getElementById("ssid");
+    const passwordInput = document.getElementById("password");
+    const securityInput = document.getElementById("security");
+    const qrContainer = document.getElementById("qrcode");
+    const strengthText = document.getElementById("strength");
+
+    // Password Strength Indicator
+    passwordInput.addEventListener("input", () => {
+      const pwd = passwordInput.value;
+      let strength = "Weak";
+      if (pwd.length > 8 && /[A-Z]/.test(pwd) && /\d/.test(pwd)) strength = "Strong";
+      else if (pwd.length >= 6) strength = "Medium";
+      strengthText.textContent = `Password Strength: ${strength}`;
+      strengthText.style.color = strength === "Strong" ? "green" : (strength === "Medium" ? "orange" : "red");
+    });
+
+    function generateQR() {
+      const ssid = ssidInput.value.trim();
+      const password = passwordInput.value;
+      const security = securityInput.value;
+
+      if (!ssid) {
+        alert("⚠️ Please enter Wi-Fi name (SSID).");
+        return;
+      }
+
+      qrContainer.innerHTML = "";
+      const wifiString = `WIFI:T:${security};S:${ssid};P:${password};;`;
+
+      qrCode = new QRCode(qrContainer, {
+        text: wifiString,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // Simple animation
+      qrContainer.style.transform = "scale(0.8)";
+      setTimeout(() => { qrContainer.style.transform = "scale(1)"; }, 100);
+    }
+
+    function togglePassword() {
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    }
+
+    function downloadQR() {
+      const img = qrContainer.querySelector("img");
+      if (!img) {
+        alert("⚠️ Generate a QR code first.");
+        return;
+      }
+      const link = document.createElement("a");
+      link.href = img.src;
+      link.download = "wifi-qr.png";
+      link.click();
+    }
+
+    function copyDetails() {
+      const ssid = ssidInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!ssid) {
+        alert("⚠️ Enter Wi-Fi name (SSID) before copying.");
+        return;
+      }
+
+      const details = `Wi-Fi Name: ${ssid}\nPassword: ${password}`;
+      navigator.clipboard.writeText(details)
+        .then(() => alert("✅ Wi-Fi details copied to clipboard"))
+        .catch(() => alert("⚠️ Failed to copy details"));
+    }
+
+    function resetAll() {
+      ssidInput.value = "";
+      passwordInput.value = "";
+      securityInput.value = "WPA";
+      qrContainer.innerHTML = "";
+      strengthText.textContent = "Password Strength: N/A";
+      strengthText.style.color = "#333";
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
