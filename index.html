@@ -45,6 +45,7 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       max-width: 400px;
       width: 100%;
+      position: relative;
     }
 
     label {
@@ -114,6 +115,28 @@
       align-items: center;
       min-height: 200px;
       transition: transform 0.3s;
+      position: relative;
+    }
+
+    /* === Loader Styles === */
+    #loader {
+      border: 5px solid #f3f3f3; /* Light grey */
+      border-top: 5px solid #007BFF; /* Blue */
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none; /* Hidden by default */
+      z-index: 10;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .actions {
@@ -205,7 +228,9 @@
 
       <button class="main-btn" onclick="generateQR()">Generate QR Code</button>
 
-      <div id="qrcode"></div>
+      <div id="qrcode">
+        <div id="loader"></div> <!-- Loader added here -->
+      </div>
 
       <div class="actions">
         <button onclick="downloadQR()">⬇ Download</button>
@@ -234,6 +259,7 @@
     const passwordInput = document.getElementById("password");
     const securityInput = document.getElementById("security");
     const qrContainer = document.getElementById("qrcode");
+    const loader = document.getElementById("loader");
     const strengthText = document.getElementById("strength");
 
     // Password Strength Indicator
@@ -256,21 +282,31 @@
         return;
       }
 
-      qrContainer.innerHTML = "";
-      const wifiString = `WIFI:T:${security};S:${ssid};P:${password};;`;
+      // Show loader
+      loader.style.display = "block";
+      qrContainer.innerHTML = ""; // Clear old QR
 
-      qrCode = new QRCode(qrContainer, {
-        text: wifiString,
-        width: 200,
-        height: 200,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
+      // Small delay to show loader
+      setTimeout(() => {
+        const wifiString = `WIFI:T:${security};S:${ssid};P:${password};;`;
 
-      // Simple animation
-      qrContainer.style.transform = "scale(0.8)";
-      setTimeout(() => { qrContainer.style.transform = "scale(1)"; }, 100);
+        qrCode = new QRCode(qrContainer, {
+          text: wifiString,
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Hide loader
+        loader.style.display = "none";
+
+        // Optional animation
+        qrContainer.style.transform = "scale(0.8)";
+        setTimeout(() => { qrContainer.style.transform = "scale(1)"; }, 100);
+
+      }, 300); // 0.3s delay
     }
 
     function togglePassword() {
