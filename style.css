@@ -9,12 +9,21 @@
 body.home-page {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #020617, #0f172a);
+  background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #0f172a);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
   font-family: Arial, sans-serif;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Animated Background */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .app {
@@ -23,11 +32,25 @@ body.home-page {
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 20px 50px rgba(0,0,0,.7);
+  animation: fadeInUp 0.8s ease;
+}
+
+/* Smooth Card Entry */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body.home-page h1 {
   text-align: center;
   margin-bottom: 5px;
+  animation: fadeIn 1s ease;
 }
 
 .subtitle {
@@ -35,6 +58,12 @@ body.home-page h1 {
   font-size: 13px;
   color: #94a3b8;
   margin-bottom: 20px;
+  animation: fadeIn 1.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 label {
@@ -51,6 +80,13 @@ input, select {
   border: none;
   background: #1e293b;
   color: white;
+  transition: 0.3s ease;
+}
+
+/* Input Focus Animation */
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #38bdf8;
 }
 
 .password-box {
@@ -65,6 +101,12 @@ input, select {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.password-box button:hover {
+  background: #475569;
+  transform: scale(1.05);
 }
 
 .main-btn {
@@ -76,16 +118,37 @@ input, select {
   font-weight: bold;
   background: #38bdf8;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
+/* Button Hover Animation */
 .main-btn:hover {
   background: #0ea5e9;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(56,189,248,0.4);
 }
 
 #qrcode {
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  transition: all 0.4s ease;
+}
+
+/* QR Pop Animation Class */
+.qr-animate {
+  animation: qrPop 0.4s ease;
+}
+
+@keyframes qrPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .actions {
@@ -101,10 +164,12 @@ input, select {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .actions button:hover {
   background: #475569;
+  transform: translateY(-2px);
 }
 
 footer {
@@ -112,6 +177,7 @@ footer {
   margin-top: 15px;
   font-size: 12px;
   color: #94a3b8;
+  animation: fadeIn 1.5s ease;
 }
 
 /* =========================
@@ -122,13 +188,16 @@ body.privacy-page {
   margin: 0;
   padding: 40px;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1e3a8a, #0f172a);
+  background: linear-gradient(-45deg, #1e3a8a, #0f172a, #1e293b);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
   color: white;
 }
 
 body.privacy-page h1 {
   text-align: center;
   margin-bottom: 30px;
+  animation: fadeIn 1s ease;
 }
 
 body.privacy-page h2 {
@@ -143,4 +212,3 @@ body.privacy-page ul {
 body.privacy-page p {
   line-height: 1.6;
 }
-
