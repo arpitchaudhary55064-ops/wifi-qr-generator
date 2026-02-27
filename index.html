@@ -1,321 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free WiFi QR Code Generator | Instant WiFi QR</title>
+<meta name="description" content="Generate WiFi QR codes instantly. Secure, fast and easy WiFi QR generator for home, office and cafes.">
 
-  <!-- ===== SEO TITLE ===== -->
-  <title>Free WiFi QR Code Generator | Create WiFi QR Codes Instantly Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- ===== BASIC SEO ===== -->
-  <meta name="description" content="Free online WiFi QR Code Generator. Create instant QR codes for WiFi networks. No data stored. Fast, secure and easy to use.">
-  <meta name="author" content="Arpit Chaudhary">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://arpitchaudhary55064-ops.github.io/wifi-qr-generator/">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  <!-- ===== FAVICON ===== -->
-  <link rel="icon" href="favicon.png" type="image/png">
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f8fafc;
+  color: #1f2937;
+  line-height: 1.7;
+}
 
-  <!-- ===== OPEN GRAPH ===== -->
-  <meta property="og:title" content="Free WiFi QR Code Generator">
-  <meta property="og:description" content="Generate instant WiFi QR codes online. No signup required.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://arpitchaudhary55064-ops.github.io/wifi-qr-generator/">
-  <meta property="og:image" content="https://arpitchaudhary55064-ops.github.io/wifi-qr-generator/preview.png">
+header {
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
 
-  <!-- ===== TWITTER CARD ===== -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Free WiFi QR Code Generator">
-  <meta name="twitter:description" content="Create WiFi QR codes instantly online for free.">
-  <meta name="twitter:image" content="https://arpitchaudhary55064-ops.github.io/wifi-qr-generator/preview.png">
+header h1 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
 
-  <!-- ===== STRUCTURED DATA ===== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "WiFi QR Code Generator",
-    "url": "https://arpitchaudhary55064-ops.github.io/wifi-qr-generator/",
-    "applicationCategory": "Utility",
-    "operatingSystem": "All",
-    "creator": {
-      "@type": "Person",
-      "name": "Arpit Chaudhary"
-    }
-  }
-  </script>
+header p {
+  font-size: 18px;
+  opacity: 0.9;
+}
 
-  <!-- ===== STYLES ===== -->
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 50px 20px;
+}
 
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+}
 
-    .app {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-    }
+h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #111827;
+}
 
-    h1 { text-align: center; }
-    .subtitle { text-align: center; margin-bottom: 20px; }
+label {
+  font-weight: 500;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+}
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .password-box { position: relative; }
+button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
 
-    .password-box button {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
+#qrcode {
+  margin-top: 25px;
+  text-align: center;
+}
 
-    .strength { margin-top: 5px; font-size: 14px; }
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
 
-    .main-btn {
-      width: 100%;
-      margin-top: 20px;
-      padding: 12px;
-      background: #007BFF;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-    }
+.blog-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
 
-    #qrcode {
-      margin-top: 25px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 200px;
-      position: relative;
-    }
+.blog-card:hover {
+  transform: translateY(-5px);
+}
 
-    #loader {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #007BFF;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      display: none;
-      position: absolute;
-    }
+.blog-card h3 {
+  margin-bottom: 12px;
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+.faq-item {
+  margin-bottom: 15px;
+}
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
+.faq-question {
+  background: #eef2ff;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
 
-    .actions button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-    }
+.faq-answer {
+  display: none;
+  padding: 10px;
+  font-size: 14px;
+}
 
-    .actions button:nth-child(1) { background: #28A745; }
-    .actions button:nth-child(2) { background: #FFC107; color: #333; }
-    .actions button:nth-child(3) { background: #DC3545; }
+footer {
+  background: #111827;
+  color: #d1d5db;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 14px;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      border-top: 1px solid #ddd;
-      background: white;
-    }
-  </style>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+footer a {
+  color: #60a5fa;
+  margin: 0 8px;
+  text-decoration: none;
+}
+</style>
 </head>
 
 <body>
 
-<main>
-  <div class="app">
-    <h1>📶 WiFi QR Code Generator</h1>
-    <p class="subtitle">Generate instant WiFi connection QR codes</p>
+<header>
+  <h1>WiFi QR Code Generator</h1>
+  <p>Share your WiFi instantly without typing passwords</p>
+</header>
+
+<div class="container">
+
+  <!-- TOOL SECTION -->
+  <div class="card">
+    <h2>Generate Your WiFi QR</h2>
 
     <label for="ssid">WiFi Name (SSID)</label>
-    <input id="ssid" placeholder="Enter WiFi name">
-
-    <label for="password">Password</label>
-    <div class="password-box">
-      <input id="password" type="password" placeholder="Enter password">
-      <button type="button" onclick="togglePassword()">👁</button>
-    </div>
-    <div class="strength" id="strength">Password Strength: N/A</div>
+    <input type="text" id="ssid">
 
     <label for="security">Security Type</label>
     <select id="security">
-      <option value="WPA">WPA / WPA2</option>
+      <option value="WPA">WPA/WPA2</option>
       <option value="WEP">WEP</option>
       <option value="nopass">No Password</option>
     </select>
 
-    <button class="main-btn" onclick="generateQR()">Generate QR Code</button>
+    <label for="password">Password</label>
+    <input type="text" id="password">
 
-    <div id="qrcode">
-      <div id="loader"></div>
-    </div>
+    <button onclick="generateQR()">Generate QR Code</button>
 
-    <div class="actions">
-      <button onclick="downloadQR()">⬇ Download</button>
-      <button onclick="copyDetails()">📋 Copy Info</button>
-      <button onclick="resetAll()">🔄 Reset</button>
+    <div id="qrcode"></div>
+  </div>
+
+  <!-- BLOG SECTION -->
+  <div class="card">
+    <h2>Latest Articles</h2>
+
+    <div class="blog-grid">
+      <div class="blog-card">
+        <h3>How WiFi QR Codes Work</h3>
+        <p>Learn how QR codes store WiFi credentials and allow instant connection without typing passwords.</p>
+      </div>
+
+      <div class="blog-card">
+        <h3>Are WiFi QR Codes Safe?</h3>
+        <p>Understand security risks and how QR codes protect your network credentials.</p>
+      </div>
+
+      <div class="blog-card">
+        <h3>How to Scan WiFi QR on iPhone & Android</h3>
+        <p>Step-by-step guide to scan WiFi QR codes using modern smartphones easily.</p>
+      </div>
     </div>
   </div>
-</main>
+
+  <!-- FAQ SECTION -->
+  <div class="card">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Is this generator safe?</div>
+      <div class="faq-answer">Yes, everything works locally in your browser. No data is stored.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Can iPhone scan WiFi QR?</div>
+      <div class="faq-answer">Yes, iPhone (iOS 11+) can scan WiFi QR using the camera app.</div>
+    </div>
+
+  </div>
+
+</div>
 
 <footer>
-  © 2026 WiFi QR Code Generator · Built by Arpit Chaudhary
+  © 2026 WiFi QR Generator |
+  <a href="#">About</a> |
+  <a href="#">Privacy</a> |
+  <a href="#">Contact</a> |
+  <a href="#">Terms</a>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
-  const ssidInput = document.getElementById("ssid");
-  const passwordInput = document.getElementById("password");
-  const securityInput = document.getElementById("security");
-  const qrContainer = document.getElementById("qrcode");
-  const loader = document.getElementById("loader");
-  const strengthText = document.getElementById("strength");
+const securityInput = document.getElementById("security");
+const passwordInput = document.getElementById("password");
 
-  function escapeInput(text) {
-    return text.replace(/([\\;,:])/g, "\\$1");
-  }
-
-  securityInput.addEventListener("change", () => {
-    if (securityInput.value === "nopass") {
-      passwordInput.disabled = true;
-      passwordInput.value = "";
-      strengthText.textContent = "Password Strength: N/A";
-      strengthText.style.color = "#333";
-    } else {
-      passwordInput.disabled = false;
-    }
-  });
-
-  passwordInput.addEventListener("input", () => {
-    const pwd = passwordInput.value;
-    let strength = "Weak";
-    if (pwd.length > 8 && /[A-Z]/.test(pwd) && /\d/.test(pwd)) strength = "Strong";
-    else if (pwd.length >= 6) strength = "Medium";
-
-    strengthText.textContent = `Password Strength: ${strength}`;
-    strengthText.style.color =
-      strength === "Strong" ? "green" :
-      strength === "Medium" ? "orange" : "red";
-  });
-
-  function generateQR() {
-    const ssidRaw = ssidInput.value.trim();
-    const passwordRaw = passwordInput.value;
-    const security = securityInput.value;
-
-    if (!ssidRaw) {
-      alert("Please enter WiFi name.");
-      return;
-    }
-
-    if (security !== "nopass" && passwordRaw.length < 8) {
-      alert("Password must be at least 8 characters.");
-      return;
-    }
-
-    const ssid = escapeInput(ssidRaw);
-    const password = escapeInput(passwordRaw);
-
-    loader.style.display = "block";
-    qrContainer.querySelectorAll("img, canvas").forEach(el => el.remove());
-
-    setTimeout(() => {
-      const wifiString = security === "nopass"
-        ? `WIFI:T:nopass;S:${ssid};;`
-        : `WIFI:T:${security};S:${ssid};P:${password};;`;
-
-      new QRCode(qrContainer, {
-        text: wifiString,
-        width: 200,
-        height: 200
-      });
-
-      loader.style.display = "none";
-    }, 300);
-  }
-
-  function togglePassword() {
-    passwordInput.type =
-      passwordInput.type === "password" ? "text" : "password";
-  }
-
-  function downloadQR() {
-    const img = qrContainer.querySelector("img");
-    if (!img) return alert("Generate QR first.");
-
-    const link = document.createElement("a");
-    link.href = img.src;
-    link.download = "wifi-qr.png";
-    link.click();
-  }
-
-  function copyDetails() {
-    const ssid = ssidInput.value.trim();
-    const password = passwordInput.value;
-    if (!ssid) return alert("Enter WiFi name first.");
-
-    navigator.clipboard.writeText(`WiFi Name: ${ssid}\nPassword: ${password}`)
-      .then(() => alert("Copied successfully"));
-  }
-
-  function resetAll() {
-    ssidInput.value = "";
+securityInput.addEventListener("change", () => {
+  if (securityInput.value === "nopass") {
+    passwordInput.disabled = true;
     passwordInput.value = "";
-    securityInput.value = "WPA";
+  } else {
     passwordInput.disabled = false;
-    strengthText.textContent = "Password Strength: N/A";
-    strengthText.style.color = "#333";
-    qrContainer.querySelectorAll("img, canvas").forEach(el => el.remove());
   }
+});
+
+function generateQR() {
+  const ssid = document.getElementById("ssid").value.trim().replace(/([\\;,:])/g, "\\$1");
+  const security = securityInput.value;
+  const password = passwordInput.value.trim().replace(/([\\;,:])/g, "\\$1");
+
+  if (!ssid) {
+    alert("Enter WiFi Name");
+    return;
+  }
+
+  const qrData = `WIFI:T:${security};S:${ssid};P:${password};;`;
+
+  document.getElementById("qrcode").innerHTML = "";
+  new QRCode(document.getElementById("qrcode"), {
+    text: qrData,
+    width: 200,
+    height: 200
+  });
+}
+
+function toggleFAQ(element) {
+  const answer = element.nextElementSibling;
+  answer.style.display = answer.style.display === "block" ? "none" : "block";
+}
 </script>
 
 </body>
