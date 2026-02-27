@@ -1,245 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wi-Fi QR Generator</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
-    /* --- Modern Responsive Styling --- */
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
+<style>
 
-    h1 {
-      margin-top: 30px;
-      text-align: center;
-      color: #222;
-    }
+/* ================= GLOBAL RESET ================= */
 
-    .container {
-      background: #fff;
-      padding: 20px 30px;
-      margin: 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+/* ================= BODY ================= */
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      transition: 0.3s;
-    }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: #007BFF;
-      box-shadow: 0 0 5px rgba(0,123,255,0.3);
-    }
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
 
-    .password-wrapper {
-      position: relative;
-    }
+  color: white;
+}
 
-    .password-wrapper button {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
+/* Animated Background */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    .strength {
-      margin-top: 5px;
-      font-size: 14px;
-    }
+/* Smooth Page Fade */
+body {
+  animation: fadeIn 1.2s ease-in-out;
+}
 
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    .buttons button {
-      flex: 1;
-      margin: 0 5px;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+/* ================= HEADING ================= */
 
-    .buttons button:hover {
-      opacity: 0.9;
-    }
+h1 {
+  margin-top: 30px;
+  font-size: 28px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-    #generate-btn { background: #007BFF; color: #fff; }
-    #download-btn { background: #28A745; color: #fff; }
-    #copy-btn { background: #FFC107; color: #fff; }
-    #reset-btn { background: #DC3545; color: #fff; }
+/* ================= CONTAINER ================= */
 
-    #qrcode {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 200px;
-      transition: transform 0.3s;
-    }
-  </style>
-</head>
+.container {
+  width: 95%;
+  max-width: 420px;
+  padding: 30px;
+  margin: 20px;
 
-<body>
-  <h1>Wi-Fi QR Generator</h1>
+  border-radius: 20px;
 
-  <div class="container">
-    <label for="ssid">Wi-Fi Name (SSID)</label>
-    <input type="text" id="ssid" placeholder="Enter Wi-Fi name">
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 
-    <label for="password">Password</label>
-    <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Enter password">
-      <button type="button" onclick="togglePassword()">👁️</button>
-    </div>
-    <div class="strength" id="strength">Password Strength: N/A</div>
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 
-    <label for="security">Security Type</label>
-    <select id="security">
-      <option value="WPA">WPA/WPA2</option>
-      <option value="WEP">WEP</option>
-      <option value="nopass">None</option>
-    </select>
+  animation: floatCard 6s ease-in-out infinite;
+}
 
-    <div class="buttons">
-      <button id="generate-btn" onclick="generateQR()">Generate QR</button>
-      <button id="download-btn" onclick="downloadQR()">Download</button>
-    </div>
-    <div class="buttons">
-      <button id="copy-btn" onclick="copyDetails()">Copy Details</button>
-      <button id="reset-btn" onclick="resetAll()">Reset</button>
-    </div>
+/* Floating Effect */
+@keyframes floatCard {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
 
-    <div id="qrcode"></div>
-  </div>
+/* ================= FORM ================= */
 
-  <script>
-    // ===== Modern Wi-Fi QR Generator =====
-    let qrCode = null;
+label {
+  margin-top: 15px;
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+}
 
-    const ssidInput = document.getElementById("ssid");
-    const passwordInput = document.getElementById("password");
-    const securityInput = document.getElementById("security");
-    const qrContainer = document.getElementById("qrcode");
-    const strengthText = document.getElementById("strength");
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
 
-    // Password strength indicator
-    passwordInput.addEventListener("input", () => {
-      const pwd = passwordInput.value;
-      let strength = "Weak";
-      if (pwd.length > 8 && /[A-Z]/.test(pwd) && /\d/.test(pwd)) strength = "Strong";
-      else if (pwd.length >= 6) strength = "Medium";
-      strengthText.textContent = `Password Strength: ${strength}`;
-      strengthText.style.color = strength === "Strong" ? "green" : (strength === "Medium" ? "orange" : "red");
-    });
+  border-radius: 10px;
+  border: none;
 
-    // Generate QR code
-    function generateQR() {
-      const ssid = ssidInput.value.trim();
-      const password = passwordInput.value;
-      const security = securityInput.value;
+  font-size: 15px;
 
-      if (!ssid) {
-        alert("⚠️ Please enter Wi-Fi name (SSID).");
-        return;
-      }
+  background: rgba(255,255,255,0.15);
+  color: white;
 
-      qrContainer.innerHTML = "";
-      const wifiString = `WIFI:T:${security};S:${ssid};P:${password};;`;
+  transition: all 0.3s ease;
+}
 
-      qrCode = new QRCode(qrContainer, {
-        text: wifiString,
-        width: 200,
-        height: 200,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
+/* Input Focus Animation */
+input:focus, select:focus {
+  outline: none;
+  transform: scale(1.04);
+  box-shadow: 0 0 12px #00e0ff;
+}
 
-      // Animation
-      qrContainer.style.transform = "scale(0.8)";
-      setTimeout(() => { qrContainer.style.transform = "scale(1)"; }, 100);
-    }
+/* ================= PASSWORD BUTTON ================= */
 
-    // Toggle password visibility
-    function togglePassword() {
-      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
-    }
+.password-wrapper {
+  position: relative;
+}
 
-    // Download QR code
-    function downloadQR() {
-      const img = qrContainer.querySelector("img");
-      if (!img) {
-        alert("⚠️ Generate a QR code first.");
-        return;
-      }
-      const link = document.createElement("a");
-      link.href = img.src;
-      link.download = "wifi-qr.png";
-      link.click();
-    }
+.password-wrapper button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
 
-    // Copy Wi-Fi details
-    function copyDetails() {
-      const ssid = ssidInput.value.trim();
-      const password = passwordInput.value;
+/* ================= STRENGTH ================= */
 
-      if (!ssid) {
-        alert("⚠️ Enter Wi-Fi name (SSID) before copying.");
-        return;
-      }
+.strength {
+  margin-top: 6px;
+  font-size: 13px;
+}
 
-      const details = `Wi-Fi Name: ${ssid}\nPassword: ${password}`;
-      navigator.clipboard.writeText(details)
-        .then(() => alert("✅ Wi-Fi details copied to clipboard"))
-        .catch(() => alert("⚠️ Failed to copy details"));
-    }
+/* ================= BUTTONS ================= */
 
-    // Reset all
-    function resetAll() {
-      ssidInput.value = "";
-      passwordInput.value = "";
-      securityInput.value = "WPA";
-      qrContainer.innerHTML = "";
-      strengthText.textContent = "Password Strength: N/A";
-      strengthText.style.color = "#333";
-    }
-  </script>
-</body>
-</html>
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/* Hover Lift Effect */
+.buttons button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+}
+
+/* Button Colors */
+#generate-btn {
+  background: linear-gradient(45deg,#00e0ff,#007cf0);
+  color: white;
+}
+
+#download-btn {
+  background: linear-gradient(45deg,#22c55e,#16a34a);
+  color: white;
+}
+
+#copy-btn {
+  background: linear-gradient(45deg,#facc15,#f59e0b);
+  color: black;
+}
+
+#reset-btn {
+  background: linear-gradient(45deg,#ef4444,#b91c1c);
+  color: white;
+}
+
+/* ================= QR SECTION ================= */
+
+#qrcode {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* QR Pop Animation */
+.qr-animate {
+  animation: popQR 0.5s ease;
+}
+
+@keyframes popQR {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+</style>
