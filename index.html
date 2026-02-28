@@ -6,9 +6,14 @@
 <title>Free WiFi QR Code Generator | Instant WiFi QR</title>
 <meta name="description" content="Generate WiFi QR codes instantly. Secure, fast and easy WiFi QR generator for home, office and cafes.">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+/* --- Modern & Attractive CSS --- */
 * {
   margin: 0;
   padding: 0;
@@ -17,21 +22,28 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f8fafc;
-  color: #1f2937;
-  line-height: 1.7;
+  /* Beautiful Gradient Background */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
+/* Header Styling */
 header {
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  background: linear-gradient(135deg, #4f46e5, #0ea5e9); /* Indigo to Cyan */
   color: white;
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  margin-bottom: 40px;
 }
 
 header h1 {
-  font-size: 40px;
-  margin-bottom: 15px;
+  font-size: 42px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header p {
@@ -39,82 +51,139 @@ header p {
   opacity: 0.9;
 }
 
+/* Main Container */
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 50px 20px;
+  padding: 0 20px 50px 20px;
 }
 
+/* Card Styling */
 .card {
   background: white;
-  padding: 35px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  padding: 40px;
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1); /* Soft shadow */
   margin-bottom: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: transform 0.3s ease;
 }
 
 h2 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #111827;
+  margin-bottom: 25px;
+  font-size: 26px;
+  color: #1e293b;
+  border-left: 5px solid #4f46e5;
+  padding-left: 15px;
 }
 
+/* Form Inputs Styling */
 label {
-  font-weight: 500;
+  font-weight: 600;
+  color: #475569;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 15px;
+  top: 42px;
+  color: #94a3b8;
+  font-size: 16px;
 }
 
 input, select {
   width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  border: 1px solid #d1d5db;
+  padding: 14px 15px 14px 45px; /* Left padding for icon */
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
   font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+  color: #334155;
 }
 
+input:focus, select:focus {
+  border-color: #4f46e5;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+/* Row Layout */
 .row {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .row > div {
   flex: 1;
 }
 
-button {
+/* Button Styling */
+button#generate-btn { /* Changed to match ID if needed, keeping generic */
   width: 100%;
-  padding: 14px;
-  border-radius: 10px;
+  padding: 16px;
+  border-radius: 12px;
   border: none;
   background: linear-gradient(135deg, #4f46e5, #06b6d4);
   color: white;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
 }
 
 button:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
 }
 
+button:active {
+  transform: translateY(-1px);
+}
+
+/* QR Code Display Area */
 #qrcode {
-  margin-top: 25px;
+  margin-top: 30px;
   text-align: center;
+  padding: 20px;
+  background: #f1f5f9;
+  border-radius: 15px;
+  border: 2px dashed #cbd5e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
 .download-btn {
-  margin-top: 15px;
+  margin-top: 20px;
   background: #10b981;
-  display: none;
+  display: none; /* Hidden by default */
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .download-btn:hover {
   background: #059669;
 }
 
+/* Blog Section */
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -125,61 +194,93 @@ button:hover {
   background: white;
   padding: 25px;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border-top: 4px solid #4f46e5;
   transition: 0.3s;
 }
 
 .blog-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
 }
 
 .blog-card h3 {
   margin-bottom: 12px;
+  color: #1e293b;
 }
 
+.blog-card p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* FAQ Section */
 .faq-item {
   margin-bottom: 15px;
 }
 
 .faq-question {
-  background: #eef2ff;
-  padding: 12px;
-  border-radius: 8px;
+  background: linear-gradient(to right, #f8fafc, #e2e8f0);
+  padding: 15px 20px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  color: #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.faq-question:hover {
+  background: #e2e8f0;
+  color: #4f46e5;
 }
 
 .faq-answer {
   display: none;
-  padding: 10px;
-  font-size: 14px;
+  padding: 15px;
+  font-size: 15px;
+  color: #475569;
+  border-left: 3px solid #4f46e5;
+  background: #f8fafc;
+  margin-top: 5px;
+  border-radius: 0 8px 8px 8px;
 }
 
+/* Footer */
 footer {
-  background: #111827;
-  color: #d1d5db;
+  background: #0f172a;
+  color: #94a3b8;
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
   font-size: 14px;
+  margin-top: 50px;
 }
 
 footer a {
-  color: #60a5fa;
+  color: #38bdf8;
   margin: 0 8px;
   text-decoration: none;
+  transition: 0.3s;
 }
 
-@media (max-width: 600px) {
-  .row {
-    flex-direction: column;
-  }
+footer a:hover {
+  color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  header h1 { font-size: 32px; }
+  .row { flex-direction: column; gap: 0; }
+  .card { padding: 25px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>WiFi QR Code Generator</h1>
+  <h1><i class="fas fa-wifi"></i> WiFi QR Generator</h1>
   <p>Share your WiFi instantly without typing passwords</p>
 </header>
 
@@ -189,38 +290,52 @@ footer a {
   <div class="card">
     <h2>Generate Your WiFi QR</h2>
 
+    <!-- WiFi Name Input with Icon -->
     <label for="ssid">WiFi Name (SSID)</label>
-    <input type="text" id="ssid">
+    <div class="input-wrapper">
+      <i class="fas fa-broadcast-tower"></i>
+      <input type="text" id="ssid" placeholder="Enter your WiFi name">
+    </div>
 
     <div class="row">
       <div>
         <label for="security">Security Type</label>
-        <select id="security">
-          <option value="WPA">WPA/WPA2</option>
-          <option value="WEP">WEP</option>
-          <option value="nopass">No Password</option>
-        </select>
+        <div class="input-wrapper">
+          <i class="fas fa-shield-alt"></i>
+          <select id="security">
+            <option value="WPA">WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">No Password</option>
+          </select>
+        </div>
       </div>
       <div>
         <label for="size">QR Code Size</label>
-        <select id="size">
-          <option value="150">Small (150px)</option>
-          <option value="200" selected>Medium (200px)</option>
-          <option value="250">Large (250px)</option>
-          <option value="300">Extra Large (300px)</option>
-          <option value="400">Custom (400px)</option>
-        </select>
+        <div class="input-wrapper">
+          <i class="fas fa-expand"></i>
+          <select id="size">
+            <option value="150">Small (150px)</option>
+            <option value="200" selected>Medium (200px)</option>
+            <option value="250">Large (250px)</option>
+            <option value="300">Extra Large (300px)</option>
+            <option value="400">Custom (400px)</option>
+          </select>
+        </div>
       </div>
     </div>
 
+    <!-- Password Input with Icon -->
     <label for="password">Password</label>
-    <input type="text" id="password">
+    <div class="input-wrapper">
+      <i class="fas fa-lock"></i>
+      <input type="text" id="password">
+    </div>
 
     <button onclick="generateQR()">Generate QR Code</button>
 
     <div id="qrcode"></div>
     
-    <button id="downloadBtn" class="download-btn" onclick="downloadQR()">📥 Download QR Code</button>
+    <button id="downloadBtn" class="download-btn" onclick="downloadQR()"><i class="fas fa-download"></i> Download QR Code</button>
   </div>
 
   <!-- BLOG SECTION -->
@@ -250,13 +365,18 @@ footer a {
     <h2>Frequently Asked Questions</h2>
 
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">Is this generator safe?</div>
-      <div class="faq-answer">Yes, everything works locally in your browser. No data is stored.</div>
+      <div class="faq-question" onclick="toggleFAQ(this)">Is this generator safe? <i class="fas fa-chevron-down"></i></div>
+      <div class="faq-answer">Yes, everything works locally in your browser. No data is stored on any server.</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">Can iPhone scan WiFi QR?</div>
-      <div class="faq-answer">Yes, iPhone (iOS 11+) can scan WiFi QR using the camera app.</div>
+      <div class="faq-question" onclick="toggleFAQ(this)">Can iPhone scan WiFi QR? <i class="fas fa-chevron-down"></i></div>
+      <div class="faq-answer">Yes, iPhone (iOS 11+) can scan WiFi QR using the camera app natively.</div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Do I need an app to scan? <i class="fas fa-chevron-down"></i></div>
+      <div class="faq-answer">No, most modern smartphones can scan QR codes directly using their camera app.</div>
     </div>
 
   </div>
@@ -265,24 +385,28 @@ footer a {
 
 <footer>
   © 2026 WiFi QR Generator |
-  <a href="about.html">About</a> |
-  <a href="privacy.html">Privacy</a> |
-  <a href="contact.html">Contact</a> |
+  <a href="#">About</a> |
+  <a href="#">Privacy</a> |
+  <a href="#">Contact</a> |
   <a href="#">Terms</a>
 </footer>
 
+<!-- QRCode JS Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
 const securityInput = document.getElementById("security");
 const passwordInput = document.getElementById("password");
 
+// Handle 'No Password' selection
 securityInput.addEventListener("change", () => {
   if (securityInput.value === "nopass") {
     passwordInput.disabled = true;
     passwordInput.value = "";
+    passwordInput.placeholder = "No password required";
   } else {
     passwordInput.disabled = false;
+    passwordInput.placeholder = "Enter WiFi Password";
   }
 });
 
@@ -295,7 +419,7 @@ function generateQR() {
   const size = parseInt(document.getElementById("size").value);
 
   if (!ssid) {
-    alert("Enter WiFi Name");
+    alert("Please enter your WiFi Name (SSID)!");
     return;
   }
 
@@ -323,12 +447,30 @@ function downloadQR() {
     link.download = "wifi-qrcode.png";
     link.href = qrCanvas.toDataURL("image/png");
     link.click();
+  } else {
+      // Fallback if library uses img tag instead of canvas (rare but possible)
+      const qrImg = document.querySelector("#qrcode img");
+      if(qrImg) {
+          link.download = "wifi-qrcode.png";
+          link.href = qrImg.src;
+          link.click();
+      }
   }
 }
 
 function toggleFAQ(element) {
   const answer = element.nextElementSibling;
-  answer.style.display = answer.style.display === "block" ? "none" : "block";
+  const icon = element.querySelector('i');
+  
+  if (answer.style.display === "block") {
+    answer.style.display = "none";
+    icon.classList.remove('fa-chevron-up');
+    icon.classList.add('fa-chevron-down');
+  } else {
+    answer.style.display = "block";
+    icon.classList.remove('fa-chevron-down');
+    icon.classList.add('fa-chevron-up');
+  }
 }
 </script>
 
