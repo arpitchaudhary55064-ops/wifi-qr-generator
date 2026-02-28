@@ -73,6 +73,15 @@ input, select {
   font-size: 15px;
 }
 
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.row > div {
+  flex: 1;
+}
+
 button {
   width: 100%;
   padding: 14px;
@@ -94,6 +103,16 @@ button:hover {
 #qrcode {
   margin-top: 25px;
   text-align: center;
+}
+
+.download-btn {
+  margin-top: 15px;
+  background: #10b981;
+  display: none;
+}
+
+.download-btn:hover {
+  background: #059669;
 }
 
 .blog-grid {
@@ -149,9 +168,14 @@ footer a {
   margin: 0 8px;
   text-decoration: none;
 }
+
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+  }
+}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -168,12 +192,26 @@ footer a {
     <label for="ssid">WiFi Name (SSID)</label>
     <input type="text" id="ssid">
 
-    <label for="security">Security Type</label>
-    <select id="security">
-      <option value="WPA">WPA/WPA2</option>
-      <option value="WEP">WEP</option>
-      <option value="nopass">No Password</option>
-    </select>
+    <div class="row">
+      <div>
+        <label for="security">Security Type</label>
+        <select id="security">
+          <option value="WPA">WPA/WPA2</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">No Password</option>
+        </select>
+      </div>
+      <div>
+        <label for="size">QR Code Size</label>
+        <select id="size">
+          <option value="150">Small (150px)</option>
+          <option value="200" selected>Medium (200px)</option>
+          <option value="250">Large (250px)</option>
+          <option value="300">Extra Large (300px)</option>
+          <option value="400">Custom (400px)</option>
+        </select>
+      </div>
+    </div>
 
     <label for="password">Password</label>
     <input type="text" id="password">
@@ -181,6 +219,8 @@ footer a {
     <button onclick="generateQR()">Generate QR Code</button>
 
     <div id="qrcode"></div>
+    
+    <button id="downloadBtn" class="download-btn" onclick="downloadQR()">📥 Download QR Code</button>
   </div>
 
   <!-- BLOG SECTION -->
@@ -246,10 +286,13 @@ securityInput.addEventListener("change", () => {
   }
 });
 
+let qrcodeObj = null;
+
 function generateQR() {
   const ssid = document.getElementById("ssid").value.trim().replace(/([\\;,:])/g, "\\$1");
   const security = securityInput.value;
   const password = passwordInput.value.trim().replace(/([\\;,:])/g, "\\$1");
+  const size = parseInt(document.getElementById("size").value);
 
   if (!ssid) {
     alert("Enter WiFi Name");
@@ -259,11 +302,28 @@ function generateQR() {
   const qrData = `WIFI:T:${security};S:${ssid};P:${password};;`;
 
   document.getElementById("qrcode").innerHTML = "";
-  new QRCode(document.getElementById("qrcode"), {
+  
+  qrcodeObj = new QRCode(document.getElementById("qrcode"), {
     text: qrData,
-    width: 200,
-    height: 200
+    width: size,
+    height: size,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
   });
+
+  // Show download button
+  document.getElementById("downloadBtn").style.display = "block";
+}
+
+function downloadQR() {
+  const qrCanvas = document.querySelector("#qrcode canvas");
+  if (qrCanvas) {
+    const link = document.createElement("a");
+    link.download = "wifi-qrcode.png";
+    link.href = qrCanvas.toDataURL("image/png");
+    link.click();
+  }
 }
 
 function toggleFAQ(element) {
@@ -274,4 +334,3 @@ function toggleFAQ(element) {
 
 </body>
 </html>
-
